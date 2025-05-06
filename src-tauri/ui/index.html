@@ -4,17 +4,33 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="styles.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tauri App</title>
+    <title>WiredChats</title>
     <script type="module" src="/main.js" defer></script>
   </head>
 
   <body>
-    <main class="chat-container">
-      <div id="messages" class="messages"></div>
-      <div class="input-container">
-        <input id="message-input" type="text" placeholder="Escribe un mensaje..." />
-        <button id="send-button">Enviar</button>
-      </div>
-    </main>
+    <div class="app-container">
+      <aside class="chat-list">
+        <header>
+          <h1>Chats</h1>
+        </header>
+        <ul>
+          <li class="chat-item">Chat 1</li>
+          <li class="chat-item">Chat 2</li>
+          <li class="chat-item">Chat 3</li>
+        </ul>
+      </aside>
+
+      <main class="chat-container">
+        <header class="chat-header">
+          <h2>Chat seleccionado</h2>
+        </header>
+        <div id="messages" class="messages"></div>
+        <div class="input-container">
+          <input id="message-input" type="text" placeholder="Escribe un mensaje..." />
+          <button id="send-button">Enviar</button>
+        </div>
+      </main>
+    </div>
   </body>
 </html>

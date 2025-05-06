@@ -3,21 +3,21 @@ const { invoke } = window.__TAURI__.core;
 let greetInputEl;
 let greetMsgEl;
 
+let currentChat = "Chat 1"; // Chat seleccionado por defecto
+const chats = {
+  "Chat 1": [],
+  "Chat 2": [],
+  "Chat 3": []
+};
+
 async function greet() {
   // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
   greetMsgEl.textContent = await invoke("greet", { name: greetInputEl.value });
 }
 
-window.addEventListener("DOMContentLoaded", () => {
-  greetInputEl = document.querySelector("#greet-input");
-  greetMsgEl = document.querySelector("#greet-msg");
-  document.querySelector("#greet-form").addEventListener("submit", (e) => {
-    e.preventDefault();
-    greet();
-  });
-
-  document.getElementById("send-button").addEventListener("click", () => {
-    const input = document.getElementById("message-input");
+function renderMessages() {
+  const messagesContainer = document.getElementById("messages");
+  messagesContainer.innerHTML = ""; // Limpiar mensajes existentes
     const message = input.value.trim();
 
     if (message) {
@@ -36,6 +36,5 @@ window.addEventListener("DOMContentLoaded", () => {
 
       // Desplazar hacia abajo automáticamente
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
-  });
-});
+    };
+  }
