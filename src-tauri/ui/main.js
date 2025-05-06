@@ -15,4 +15,27 @@ window.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
     greet();
   });
+
+  document.getElementById("send-button").addEventListener("click", () => {
+    const input = document.getElementById("message-input");
+    const message = input.value.trim();
+
+    if (message) {
+      const messagesContainer = document.getElementById("messages");
+
+      // Crear un nuevo elemento de mensaje
+      const messageElement = document.createElement("div");
+      messageElement.textContent = message;
+      messageElement.className = "message";
+
+      // Agregar el mensaje al contenedor
+      messagesContainer.appendChild(messageElement);
+
+      // Limpiar el campo de entrada
+      input.value = "";
+
+      // Desplazar hacia abajo automáticamente
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+  });
 });
