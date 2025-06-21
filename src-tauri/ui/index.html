@@ -10,27 +10,19 @@
 
   <body>
     <div class="app-container">
-      <aside class="chat-list">
-        <header>
-          <h1>Chats</h1>
-        </header>
-        <ul>
-          <li class="chat-item">Chat 1</li>
-          <li class="chat-item">Chat 2</li>
-          <li class="chat-item">Chat 3</li>
-        </ul>
-      </aside>
-
-      <main class="chat-container">
-        <header class="chat-header">
-          <h2>Chat seleccionado</h2>
-        </header>
-        <div id="messages" class="messages"></div>
-        <div class="input-container">
-          <input id="message-input" type="text" placeholder="Escribe un mensaje..." />
-          <button id="send-button">Enviar</button>
-        </div>
-      </main>
+      <button id="add-session-button">Agregar nueva sesión</button>
+      <div id="chat-sessions">
+        <main class="chat-container" data-session="1">
+          <header class="chat-header">
+            <h2>Chat 1</h2>
+          </header>
+          <div id="messages-1" class="messages"></div>
+          <div class="input-container">
+            <input id="message-input-1" type="text" placeholder="Escribe un mensaje..." />
+            <button id="send-button-1">Enviar</button>
+          </div>
+        </main>
+      </div>
     </div>
   </body>
 </html>

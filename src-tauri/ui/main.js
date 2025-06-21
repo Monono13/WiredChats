@@ -1,40 +1,77 @@
-const { invoke } = window.__TAURI__.core;
+window.addEventListener("DOMContentLoaded", () => {
+  let sessionCount = 1;
+  const chats = {};
 
-let greetInputEl;
-let greetMsgEl;
+  function createChatSession() {
+    sessionCount++;
+    const chatContainer = document.createElement("main");
+    chatContainer.className = "chat-container";
+    chatContainer.setAttribute("data-session", sessionCount);
 
-let currentChat = "Chat 1"; // Chat seleccionado por defecto
-const chats = {
-  "Chat 1": [],
-  "Chat 2": [],
-  "Chat 3": []
-};
+    const header = document.createElement("header");
+    header.className = "chat-header";
+    header.innerHTML = `<h2>Chat ${sessionCount}</h2>`;
 
-async function greet() {
-  // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-  greetMsgEl.textContent = await invoke("greet", { name: greetInputEl.value });
-}
+    const messagesDiv = document.createElement("div");
+    messagesDiv.id = `messages-${sessionCount}`;
+    messagesDiv.className = "messages";
 
-function renderMessages() {
-  const messagesContainer = document.getElementById("messages");
-  messagesContainer.innerHTML = ""; // Limpiar mensajes existentes
-    const message = input.value.trim();
+    const inputContainer = document.createElement("div");
+    inputContainer.className = "input-container";
 
-    if (message) {
-      const messagesContainer = document.getElementById("messages");
+    const input = document.createElement("input");
+    input.id = `message-input-${sessionCount}`;
+    input.type = "text";
+    input.placeholder = "Escribe un mensaje...";
 
-      // Crear un nuevo elemento de mensaje
+    const sendButton = document.createElement("button");
+    sendButton.id = `send-button-${sessionCount}`;
+    sendButton.textContent = "Enviar";
+
+    inputContainer.appendChild(input);
+    inputContainer.appendChild(sendButton);
+
+    chatContainer.appendChild(header);
+    chatContainer.appendChild(messagesDiv);
+    chatContainer.appendChild(inputContainer);
+
+    document.getElementById("chat-sessions").appendChild(chatContainer);
+
+    chats[`messages-${sessionCount}`] = [];
+
+    sendButton.addEventListener("click", () => {
+      const message = input.value.trim();
+      if (message) {
+        chats[`messages-${sessionCount}`].push(message);
+        renderMessages(`messages-${sessionCount}`);
+        input.value = "";
+      }
+    });
+  }
+
+  function renderMessages(chatId) {
+    const messagesContainer = document.getElementById(chatId);
+    messagesContainer.innerHTML = "";
+    chats[chatId].forEach((message) => {
       const messageElement = document.createElement("div");
       messageElement.textContent = message;
       messageElement.className = "message";
-
-      // Agregar el mensaje al contenedor
       messagesContainer.appendChild(messageElement);
-
-      // Limpiar el campo de entrada
-      input.value = "";
-
-      // Desplazar hacia abajo automáticamente
-      messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    };
+    });
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
   }
+
+  chats["messages-1"] = [];
+
+  document.getElementById("send-button-1").addEventListener("click", () => {
+    const input = document.getElementById("message-input-1");
+    const message = input.value.trim();
+    if (message) {
+      chats["messages-1"].push(message);
+      renderMessages("messages-1");
+      input.value = "";
+    }
+  });
+
+  document.getElementById("add-session-button").addEventListener("click", createChatSession);
+});
