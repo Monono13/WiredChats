@@ -10,8 +10,13 @@
 
   <body>
     <div class="app-container">
-      <button id="add-session-button">Agregar nueva sesión</button>
-      <div id="chat-sessions">
+      <nav class="navbar">
+        <button id="add-session-button">Agregar nueva sesión</button>
+        <ul id="session-tabs" class="session-tabs">
+          <li data-session="1" class="active">Chat 1</li>
+        </ul>
+      </nav>
+      <div id="chat-sessions" class="chat-sessions">
         <main class="chat-container" data-session="1">
           <header class="chat-header">
             <h2>Chat 1</h2>
