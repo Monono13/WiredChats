@@ -1,6 +1,6 @@
-/* Chat container styles */
+/* Estilos para el contenedor principal del chat */
 .chat-container {
-  display: none;
+  display: none; /* Oculta los contenedores de chat por defecto */
   flex-direction: column;
   flex: 1;
   background: #ffffff;
@@ -10,28 +10,32 @@
   position: relative;
 }
 
+/* Muestra el contenedor de chat activo */
 .chat-container.active {
   display: flex;
 }
 
+/* Estilos para la lista de mensajes */
 .messages {
   flex: 1;
   padding: 1rem;
-  overflow-y: auto;
+  overflow-y: auto; /* Permite desplazarse verticalmente si hay muchos mensajes */
   background: #f9f9f9;
 }
 
+/* Estilos para el contenedor de entrada de mensajes */
 .input-container {
   display: flex;
   padding: 1rem;
   background: #ecf0f1;
   border-top: 1px solid #bdc3c7;
-  position: fixed;
+  position: fixed; /* Fija el contenedor en la parte inferior */
   bottom: 0;
   width: calc(100% - 2rem);
   box-sizing: border-box;
 }
 
+/* Estilos para el campo de entrada de texto */
 input[type="text"] {
   flex: 1;
   padding: 0.5rem;
@@ -40,6 +44,7 @@ input[type="text"] {
   font-size: 1rem;
 }
 
+/* Estilos para los botones */
 button {
   margin-left: 0.5rem;
   padding: 0.5rem 1rem;
@@ -51,11 +56,12 @@ button {
   font-size: 1rem;
 }
 
+/* Cambia el color del botón al pasar el cursor */
 button:hover {
   background: #2980b9;
 }
 
-/* Session tabs styles */
+/* Estilos para las pestañas de sesión */
 .session-tabs {
   list-style: none;
   padding: 0;
@@ -64,6 +70,7 @@ button:hover {
   border-bottom: 1px solid #bdc3c7;
 }
 
+/* Estilos para cada pestaña */
 .session-tabs li {
   cursor: pointer;
   padding: 0.5rem 1rem;
@@ -74,6 +81,7 @@ button:hover {
   display: inline-block;
 }
 
+/* Estilos para la pestaña activa */
 .session-tabs li.active {
   background: #3498db;
   color: #ffffff;

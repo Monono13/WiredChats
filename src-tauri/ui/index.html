@@ -1,27 +1,40 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Define el conjunto de caracteres como UTF-8 para soportar caracteres especiales -->
     <meta charset="UTF-8" />
+    <!-- Vincula el archivo de estilos CSS para aplicar diseño a la página -->
     <link rel="stylesheet" href="styles.css" />
+    <!-- Configura la página para ser responsiva en dispositivos móviles -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Título de la página que aparece en la pestaña del navegador -->
     <title>WiredChats</title>
+    <!-- Vincula el archivo JavaScript principal para manejar la lógica de la aplicación -->
     <script type="module" src="/main.js" defer></script>
   </head>
 
   <body>
     <div class="app-container">
+      <!-- Barra de navegación que contiene el botón para agregar sesiones y las pestañas de sesiones -->
       <nav class="navbar">
+        <!-- Botón para agregar una nueva sesión de chat -->
         <button id="add-session-button">Agregar nueva sesión</button>
+        <!-- Lista de pestañas de sesiones, inicialmente contiene solo "Chat 1" -->
         <ul id="session-tabs" class="session-tabs">
           <li data-session="1" class="active">Chat 1</li>
         </ul>
       </nav>
+      <!-- Contenedor principal para las sesiones de chat -->
       <div id="chat-sessions" class="chat-sessions">
+        <!-- Contenedor de la primera sesión de chat -->
         <main class="chat-container" data-session="1">
+          <!-- Encabezado de la sesión de chat que muestra el nombre de la sesión -->
           <header class="chat-header">
             <h2>Chat 1</h2>
           </header>
+          <!-- Contenedor para los mensajes de la sesión -->
           <div id="messages-1" class="messages"></div>
+          <!-- Contenedor para la entrada de mensajes y el botón de enviar -->
           <div class="input-container">
             <input id="message-input-1" type="text" placeholder="Escribe un mensaje..." />
             <button id="send-button-1">Enviar</button>
