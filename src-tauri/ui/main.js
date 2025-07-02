@@ -20,11 +20,6 @@ function createChatSession() {
   chatContainer.className = "chat-container";
   chatContainer.setAttribute("data-session", sessionCount);
 
-  // Encabezado del chat que muestra el nombre de la sesión
-  const header = document.createElement("header");
-  header.className = "chat-header";
-  header.innerHTML = `<h2>${sessionName}</h2>`;
-
   // Contenedor para los mensajes de la sesión
   const messagesDiv = document.createElement("div");
   messagesDiv.id = `messages-${sessionCount}`;
@@ -47,8 +42,7 @@ function createChatSession() {
   inputContainer.appendChild(input);
   inputContainer.appendChild(sendButton);
 
-  // Agrega el encabezado, los mensajes y el contenedor de entrada al contenedor de chat
-  chatContainer.appendChild(header);
+  // Agrega el contenedor de mensajes y el contenedor de entrada al contenedor de chat
   chatContainer.appendChild(messagesDiv);
   chatContainer.appendChild(inputContainer);
 
@@ -75,6 +69,12 @@ function createChatSession() {
   switchSession(sessionCount);
 }
 
+// Actualiza el título de la sesión activa
+function updateSessionTitle(sessionName) {
+  const titleElement = document.getElementById("active-session-title");
+  titleElement.textContent = sessionName;
+}
+
 // Función para cambiar entre sesiones de chat
 function switchSession(sessionId) {
   // Oculta todas las sesiones de chat y desactiva todas las pestañas
@@ -92,6 +92,12 @@ function switchSession(sessionId) {
   if (activeContainer && activeTab) {
     activeContainer.classList.add("active");
     activeTab.classList.add("active");
+
+    // Actualiza el título de la sesión activa
+    updateSessionTitle(activeTab.textContent);
+
+    // Limpia el campo de entrada
+    document.getElementById("message-input").value = "";
   } else {
     console.error(`Session ${sessionId} not found.`);
   }
@@ -111,25 +117,46 @@ function renderMessages(chatId) {
   messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
-// Inicializa la aplicación cuando el DOM esté completamente cargado
+// Asegura que los eventos estén correctamente vinculados y depurados
 window.addEventListener("DOMContentLoaded", () => {
   // Inicializa la primera sesión de chat
   chats["messages-1"] = [];
 
-  // Agrega un evento al botón de enviar de la primera sesión
-  document.getElementById("send-button-1").addEventListener("click", () => {
-    const input = document.getElementById("message-input-1");
+  // Vincula el botón de enviar mensaje al campo de entrada global
+  const sendButton = document.getElementById("send-button");
+  sendButton.addEventListener("click", () => {
+    const input = document.getElementById("message-input");
     const message = input.value.trim();
-    if (message) {
-      chats["messages-1"].push(message);
-      renderMessages("messages-1");
+    const activeSession = document.querySelector(".chat-container.active");
+
+    if (message && activeSession) {
+      const sessionId = activeSession.getAttribute("data-session");
+      if (!chats[`messages-${sessionId}`]) {
+        chats[`messages-${sessionId}`] = [];
+      }
+      chats[`messages-${sessionId}`].push(message);
+      renderMessages(`messages-${sessionId}`);
       input.value = "";
     }
   });
 
-  // Agrega un evento al botón para crear nuevas sesiones
-  document.getElementById("add-session-button").addEventListener("click", createChatSession);
+  // Asegura que el botón de agregar sesión esté correctamente vinculado
+  const addSessionButton = document.getElementById("add-session-button");
+  if (addSessionButton) {
+    addSessionButton.addEventListener("click", () => {
+      createChatSession();
+    });
+  } else {
+    console.error("No se encontró el botón de agregar sesión en el DOM.");
+  }
 
-  // Agrega un evento a la pestaña inicial para cambiar a la primera sesión
-  document.querySelector(".session-tabs li").addEventListener("click", () => switchSession(1));
+  // Asegura que las pestañas sean clicables y cambien correctamente
+  const sessionTabs = document.getElementById("session-tabs");
+  sessionTabs.addEventListener("click", (event) => {
+    const clickedTab = event.target;
+    if (clickedTab.tagName === "LI" && clickedTab.hasAttribute("data-session")) {
+      const sessionId = parseInt(clickedTab.getAttribute("data-session"), 10);
+      switchSession(sessionId);
+    }
+  });
 });

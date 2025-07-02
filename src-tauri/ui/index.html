@@ -15,32 +15,36 @@
 
   <body>
     <div class="app-container">
-      <!-- Barra de navegación que contiene el botón para agregar sesiones y las pestañas de sesiones -->
-      <nav class="navbar">
+      <!-- Sección para la lista de sesiones -->
+      <aside class="session-list">
         <!-- Botón para agregar una nueva sesión de chat -->
         <button id="add-session-button">Agregar nueva sesión</button>
         <!-- Lista de pestañas de sesiones, inicialmente contiene solo "Chat 1" -->
         <ul id="session-tabs" class="session-tabs">
           <li data-session="1" class="active">Chat 1</li>
         </ul>
-      </nav>
-      <!-- Contenedor principal para las sesiones de chat -->
+      </aside>
+
+      <!-- Sección para el título de la sesión activa -->
+      <header class="session-title">
+        <!-- Título de la sesión que aparece en la parte superior de la ventana de chat -->
+        <h2 id="active-session-title">Chat 1</h2>
+      </header>
+
+      <!-- Sección para los mensajes de la sesión activa -->
       <div id="chat-sessions" class="chat-sessions">
         <!-- Contenedor de la primera sesión de chat -->
         <main class="chat-container" data-session="1">
-          <!-- Encabezado de la sesión de chat que muestra el nombre de la sesión -->
-          <header class="chat-header">
-            <h2>Chat 1</h2>
-          </header>
           <!-- Contenedor para los mensajes de la sesión -->
           <div id="messages-1" class="messages"></div>
-          <!-- Contenedor para la entrada de mensajes y el botón de enviar -->
-          <div class="input-container">
-            <input id="message-input-1" type="text" placeholder="Escribe un mensaje..." />
-            <button id="send-button-1">Enviar</button>
-          </div>
         </main>
       </div>
+
+      <!-- Sección fija para el campo de entrada y el botón de enviar -->
+      <footer class="message-input-area">
+        <input id="message-input" class="message-input" type="text" placeholder="Escribe un mensaje..." />
+        <button id="send-button" class="send-button">Enviar</button>
+      </footer>
     </div>
   </body>
 </html>
