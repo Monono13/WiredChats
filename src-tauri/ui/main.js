@@ -25,26 +25,8 @@ function createChatSession() {
   messagesDiv.id = `messages-${sessionCount}`;
   messagesDiv.className = "messages";
 
-  // Contenedor para la entrada de mensajes y el botón de enviar
-  const inputContainer = document.createElement("div");
-  inputContainer.className = "input-container";
-
-  const input = document.createElement("input");
-  input.id = `message-input-${sessionCount}`;
-  input.type = "text";
-  input.placeholder = "Escribe un mensaje...";
-
-  const sendButton = document.createElement("button");
-  sendButton.id = `send-button-${sessionCount}`;
-  sendButton.textContent = "Enviar";
-
-  // Agrega el campo de entrada y el botón al contenedor de entrada
-  inputContainer.appendChild(input);
-  inputContainer.appendChild(sendButton);
-
-  // Agrega el contenedor de mensajes y el contenedor de entrada al contenedor de chat
+  // Agrega el contenedor de mensajes al contenedor de chat
   chatContainer.appendChild(messagesDiv);
-  chatContainer.appendChild(inputContainer);
 
   // Agrega el contenedor de chat al área principal de sesiones
   document.getElementById("chat-sessions").appendChild(chatContainer);
@@ -52,7 +34,11 @@ function createChatSession() {
   // Inicializa el almacenamiento de mensajes para la nueva sesión
   chats[`messages-${sessionCount}`] = [];
 
-  // Agrega un evento al botón de enviar para manejar el envío de mensajes
+  // Usar el contenedor de entrada existente en el HTML
+  const inputContainer = document.querySelector(".input-container");
+  const input = document.getElementById("message-input");
+  const sendButton = document.getElementById("send-button");
+
   sendButton.addEventListener("click", () => {
     const message = input.value.trim();
     if (message) {
